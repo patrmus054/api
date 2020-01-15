@@ -2,9 +2,7 @@ require("dotenv").config();
 require('./models/Registration')
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.DATABASE, {
-    useMongoClient: true
-});
+mongoose.connect(process.env.DATABASE, {});
 mongoose.Promise = global.Promise;
 mongoose.connection
     .on("connected", () => {
