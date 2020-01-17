@@ -2,10 +2,7 @@ const path = require("path");
 const auth = require("http-auth");
 const express = require("express");
 const mongoose = require("mongoose");
-const {
-  body,
-  validationResult
-} = require("express-validator/check");
+const { body, validationResult } = require("express-validator/check");
 
 const router = express.Router();
 const Registration = mongoose.model("Registration");
@@ -16,14 +13,14 @@ const basic = auth.basic({
 });
 
 router.get("/food/:name", (req, res) => {
-  const reg = new RegExp(req.params.name.toUpperCase())
+  const reg = new RegExp(req.params.name.toUpperCase());
   Food.find({
-      name: reg
-    })
+    name: reg
+  })
     .then(foods => {
       res.json({
         foods
-      })
+      });
     })
     .catch(() => {
       res.send("Sorry! Something went wrong.");
@@ -34,37 +31,37 @@ router.post(
   "/food/",
   [
     body("name")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter a name"),
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter a name"),
     body("calories")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter an calories"),
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter an calories"),
     body("protein")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter a protein"),
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter a protein"),
     body("fat")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter a fat"),
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter a fat"),
     body("carbohydrates")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter a carbohydrates")
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter a carbohydrates")
   ],
   (req, res) => {
     const errors = validationResult(req);
 
     if (errors.isEmpty()) {
       const food = new Food(req.body);
-      food.name = food.name.toUpperCase();
+      food.name = food.name;
       food
         .save()
         .then(() => {
@@ -106,15 +103,15 @@ router.post(
   "/",
   [
     body("name")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter a name"),
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter a name"),
     body("email")
-    .isLength({
-      min: 1
-    })
-    .withMessage("Please enter an email")
+      .isLength({
+        min: 1
+      })
+      .withMessage("Please enter an email")
   ],
   (req, res) => {
     const errors = validationResult(req);
